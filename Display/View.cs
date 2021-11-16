@@ -146,11 +146,11 @@ namespace View
             Console.ForegroundColor = ConsoleColor.Red;
             if ((player+1) % 2 == (int)Chess.Player.red)
             {
-                Console.Write("           The  RED SIDE IS WIN!!!                  ");               
+                Console.Write("           The  RED SIDE WIN!!!                  ");               
             }
             else
             {
-                Console.Write("           The  BLACK SIDE IS WIN!!!                ");
+                Console.Write("           The  BLACK SIDE WIN!!!                ");
             }
             Console.ReadKey();
         }
