@@ -14,6 +14,16 @@ namespace Control
 
             switch (XMoving||YMoving) {
                 case true:
+                    if (XMoving) {
+                        if (Matrix[(OriginalX+CurrentX)/2,OriginalY].side != Chess.Player.blank) {
+                            return false;
+                        }
+                    }
+                    if (YMoving) {
+                        if (Matrix[OriginalX,(OriginalY + CurrentY) / 2].side != Chess.Player.blank) {
+                            return false;
+                        }                     
+                    }
                     break;
                 case false:
                     return false;
