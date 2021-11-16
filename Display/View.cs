@@ -20,6 +20,24 @@ namespace View
             //初始化棋子位置 方法在pieces中 Matrix中包含棋盘上每个坐标的type，path，等属性
             Chess[,] Matrix = mod.SetPosition();
 
+        public void Start(int start)            //print the start statement
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("      Welcome to our XiangQi Game!     ");
+            if (start % 2 == 0)
+            {
+                Console.WriteLine("          It's RED turn now!         ");
+                Console.WriteLine("     Select your piece（X&Y) to move!    ");
+            }
+            else
+            {
+                Console.WriteLine("          It's BLACK turn now!         ");
+                Console.WriteLine("     Select your piece (X&Y) to move!      ");
+            }
+        }
+
+            
             //结果为真，也就是场上仍存在两名将时
             while (GameContinue == true)
             {
@@ -71,45 +89,10 @@ namespace View
             view.Displaying(Matrix);
             view.Win(player);
         }
+        
+        
 
-
-        public void Start(int start)            //print the start statement
-        {
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("      Welcome to our XiangQi Game!     ");
-            if (start % 2 == 0)
-            {
-                Console.WriteLine("          It's RED turn now!         ");
-                Console.WriteLine("     Select your piece（X&Y) to move!    ");
-            }
-            else
-            {
-                Console.WriteLine("          It's BLACK turn now!         ");
-                Console.WriteLine("     Select your piece (X&Y) to move!      ");
-            }
-        }
-
-
-        public int Move(bool turn, int player, int OriginalX, int OriginalY, int CurrentX, int CurrentY)          //print the statement of movement
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-
-            if (turn == false)
-            {
-                Console.Write(" This is the wrong path, please set it again! ");               
-            }
-            else
-            {
-                Console.Write(" Your piece move from (" + OriginalX + "," + OriginalY  + ") to (" + CurrentX + "," + CurrentY + ") successfully!");
-                player++;
-            }
-            Console.ReadLine();
-            return player;
-        }
-
-
-        public void Check(int checkpiece, string[,] Board, int OriginalX, int OriginalY)        //tell the user the condition of the movement of the piece
+        public void Check(int checkpiece, string[,] Board, int OriginalX, int OriginalY)        //tell the user the condition of choosing the original piece
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.BackgroundColor = ConsoleColor.Black;
@@ -138,6 +121,25 @@ namespace View
             Console.Write("  You cannot select this  position! Please select again! ");
             Console.ReadLine();
         }
+        
+        
+        
+        public int Move(bool turn, int player, int OriginalX, int OriginalY, int CurrentX, int CurrentY)          //print the statement of movement
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+
+            if (turn == false)
+            {
+                Console.Write(" This is the wrong path, please set it again! ");               
+            }
+            else
+            {
+                Console.Write(" Your piece move from (" + OriginalX + "," + OriginalY  + ") to (" + CurrentX + "," + CurrentY + ") successfully!");
+                player++;
+            }
+            Console.ReadLine();
+            return player;
+        }
 
 
         public void Win(int player)     //print the statement of WIN in the base
@@ -146,11 +148,11 @@ namespace View
             Console.ForegroundColor = ConsoleColor.Red;
             if ((player+1) % 2 == (int)Chess.Player.red)
             {
-                Console.Write("           The  RED SIDE WIN!!!                  ");               
+                Console.Write("           The  RED SIDE IS WIN!!!                  ");               
             }
             else
             {
-                Console.Write("           The  BLACK SIDE WIN!!!                ");
+                Console.Write("           The  BLACK SIDE IS WIN!!!                ");
             }
             Console.ReadKey();
         }
