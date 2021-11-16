@@ -88,7 +88,7 @@ namespace Control
         }
 
 
-        public bool MovePiece(int X, int Y, int chozenX, int chozenY, Chess[,] Matrix)//定义每种棋子的移动方式,这里是调用pieceControl中的棋子
+        public bool MovePiece(int CurrentX, int CurrentY, int OriginalX, int OriginalY, Chess[,] Matrix)//定义每种棋子的移动方式,这里是调用pieceControl中的棋子
         {
             //实例化棋子
             Advisor advisor = new Advisor();
@@ -101,28 +101,28 @@ namespace Control
 
             bool Move;
 
-            switch (Matrix[chozenX, chozenY].type)
+            switch (Matrix[OriginalX, OriginalY].type)
             {
                 case Chess.Piecetype.che:
-                    Move = rook.Che(X, Y, chozenX, chozenY, Matrix);
+                    Move = rook.Che(CurrentX, CurrentY, OriginalX, OriginalY, Matrix);
                     return Move;
                 case Chess.Piecetype.ma:
-                    Move = horse.Ma(X, Y, chozenX, chozenY, Matrix);
+                    Move = horse.Ma(CurrentX, CurrentY, OriginalX, OriginalY, Matrix);
                     return Move;
                 case Chess.Piecetype.xiang:
-                    Move = elephant.Xiang(X, Y, chozenX, chozenY, Matrix);
+                    Move = elephant.Xiang(CurrentX, CurrentY, OriginalX, OriginalY, Matrix);
                     return Move;
                 case Chess.Piecetype.shi:
-                    Move = advisor.Shi(X, Y, chozenX, chozenY, Matrix);
+                    Move = advisor.Shi(CurrentX, CurrentY, OriginalX, OriginalY, Matrix);
                     return Move;
                 case Chess.Piecetype.jiang:
-                    Move = general.Jiang(X, Y, chozenX, chozenY, Matrix);
+                    Move = general.Jiang(CurrentX, CurrentY, OriginalX, OriginalY, Matrix);
                     return Move;
                 case Chess.Piecetype.pao:
-                    Move = cannon.Pao(X, Y, chozenX, chozenY, Matrix);
+                    Move = cannon.Pao(CurrentX, CurrentY, OriginalX, OriginalY, Matrix);
                     return Move;
                 case Chess.Piecetype.bing:
-                    Move = soldier.Bing(X, Y, chozenX, chozenY, Matrix);
+                    Move = soldier.Bing(CurrentX, CurrentY, OriginalX, OriginalY, Matrix);
                     return Move;
             }
 
@@ -131,15 +131,15 @@ namespace Control
 
         //判断选中的是否是棋子
         //这里的0，1，2是调用了enum里的player，即red=0,black=1,blank=2
-        public int CheckPiece(int chozenX, int chozenY, Chess[,] Matrix)                
+        public int CheckPiece(int OriginalX, int OriginalY, Chess[,] Matrix)                
         {
-            if (Matrix[chozenX, chozenY].type == Chess.Piecetype.blank)
+            if (Matrix[OriginalX, OriginalY].type == Chess.Piecetype.blank)
             {
                 return 0;//no pieces
             }
             else if (turn == (int)Chess.Player.red)
             {
-                if (Matrix[chozenX, chozenY].side != Chess.Player.red)
+                if (Matrix[OriginalX, OriginalY].side != Chess.Player.red)
                 {
                     return 1;//选择了对方的棋子
                 }
@@ -150,7 +150,7 @@ namespace Control
             }
             else if (turn == (int)Chess.Player.black)
             {
-                if (Matrix[chozenX, chozenY].side != Chess.Player.black)
+                if (Matrix[OriginalX, OriginalY].side != Chess.Player.black)
                 {
                     return 1;
                 }
@@ -164,12 +164,12 @@ namespace Control
         }
 
 
-        public void SetMove(int X, int Y, int chozenX, int chozenY, Chess[,] Matrix)       //基本移动方式
+     public void SetMove(int CurrentX, int CurrentY, int OriginalX, int OriginalY, Chess[,] Matrix)       //基本移动方式
         {
-            Matrix[X, Y].side = Matrix[chozenX, chozenY].side;
-            Matrix[X, Y].type = Matrix[chozenX, chozenY].type;
-            Matrix[chozenX, chozenY].side = Chess.Player.blank;
-            Matrix[chozenX, chozenY].type = Chess.Piecetype.blank;
+            Matrix[CurrentX, CurrentY].side = Matrix[OriginalX, OriginalY].side;
+            Matrix[CurrentX, CurrentY].type = Matrix[OriginalX, OriginalY].type;
+            Matrix[OriginalX, OriginalY].side = Chess.Player.blank;
+            Matrix[OriginalX, OriginalY].type = Chess.Piecetype.blank;
         }
 
         static void Main(string[] args) {        
